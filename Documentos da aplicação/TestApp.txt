@@ -1,0 +1,317 @@
+
+//activity_login.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context="br.com.acheiclassificados.testeapp.RegistrarActivity">
+
+    <!-- Nome do usuário -->
+    <TextView
+        android:text="@string/nome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/nome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:singleLine="true"/>
+
+    <!-- Senha do usuário -->
+    <TextView
+        android:text="@string/senha_reg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/senha_reg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:singleLine="true"/>
+
+    <TextView
+        android:text="Repita a senha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/repitaSenha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:singleLine="true"/>
+
+    <Button
+        android:id="@+id/btnRegistrar"
+        android:text="Registrar"
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="60sp"/>
+
+</LinearLayout>
+
+//activity_registrar.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context="br.com.acheiclassificados.testeapp.RegistrarActivity">
+
+    <!-- Nome do usuário -->
+    <TextView
+        android:text="@string/nome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/nome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:singleLine="true"/>
+
+    <!-- Senha do usuário -->
+    <TextView
+        android:text="@string/senha_reg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/senha_reg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:singleLine="true"/>
+
+    <TextView
+        android:text="Repita a senha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/repitaSenha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:singleLine="true"/>
+
+    <Button
+        android:id="@+id/btnRegistrar"
+        android:text="Registrar"
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="60sp"/>
+
+</LinearLayout>
+
+//activity_loginOK.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context="br.com.acheiclassificados.testeapp.LoginOKActivity">
+
+    <TextView
+        android:text="Login realizado com sucesso!"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+</LinearLayout>
+
+//LoginActivity.java
+
+public class LoginActivity extends AppCompatActivity {
+
+    private EditText edtUsuario;
+    private EditText edtSenha;
+    private Button btnEntrar;
+    private TextView txtRegistrar;
+
+    Helper db;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
+        db = new Helper(this);
+
+        edtUsuario = (EditText)findViewById(R.id.usuario);
+        edtSenha = (EditText)findViewById(R.id.senha);
+        btnEntrar = (Button)findViewById(R.id.entrar);
+        txtRegistrar = (TextView)findViewById(R.id.registrar);
+
+        btnEntrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nome = edtUsuario.getText().toString();
+                String senha = edtSenha.getText().toString();
+
+                //Quando o nome e a senha estão em branco
+                if(nome.equals("") && senha.equals("")){
+                    Toast.makeText(LoginActivity.this, "Insira os dados para efetuar o login!", Toast.LENGTH_SHORT).show();
+                }
+                //Quando o nome está em branco
+                else if (nome.equals("")){
+                    Toast.makeText(LoginActivity.this, "Usuário não inserido, tente novamente!", Toast.LENGTH_SHORT).show();
+                }
+                //Quando a senha está em branco
+                else if(senha.equals("")){
+                    Toast.makeText(LoginActivity.this, "Senha não inserida, tente novamente!", Toast.LENGTH_SHORT).show();
+                }
+                //Quando o usuário e senha estão corretos ou não tem no BD
+                else {
+                    String loginOK = db.ValidarLogin(nome, senha);
+
+                    if(loginOK.equals("OK")){
+                        Intent intentVaiPraLoginOK = new Intent(LoginActivity.this, LoginOKActivity.class);
+                        startActivity(intentVaiPraLoginOK);
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Login incorreto, tente novamente", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+        txtRegistrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentVaiPraRegistro = new Intent(LoginActivity.this, RegistrarActivity.class);
+                startActivity(intentVaiPraRegistro);
+            }
+        });
+
+    }
+}
+
+//RegistrarActivity.java
+
+public class RegistrarActivity extends AppCompatActivity {
+
+    private EditText edtNome;
+    private EditText senhaReg;
+    private EditText senhaReg1;
+    private Button btn_Registrar;
+
+    Helper db;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_registrar);
+
+        db = new Helper(this);
+
+        edtNome = (EditText)findViewById(R.id.nome);
+        senhaReg = (EditText)findViewById(R.id.senha_reg);
+        senhaReg1 = (EditText)findViewById(R.id.repitaSenha);
+        btn_Registrar = (Button)findViewById(R.id.btnRegistrar);
+
+        btn_Registrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nome = edtNome.getText().toString();
+                String senha = senhaReg.getText().toString();
+                String  repitaSenha = senhaReg1.getText().toString();
+
+                //Se o usuário apertar em registrar antes de inserir os campos
+                if(nome.equals("") && senha.equals("") && repitaSenha.equals("")){
+                    Toast.makeText(RegistrarActivity.this, "Falta inserir os campos!", Toast.LENGTH_SHORT).show();
+                }
+                //Se o usuário não inserir a senha
+                else if(senha.equals("")){
+                    Toast.makeText(RegistrarActivity.this, "Insira a senha!", Toast.LENGTH_SHORT).show();
+                }
+                //Se o usuário esquecer de repetir a senha para registro
+                else if(repitaSenha.equals("")){
+                    Toast.makeText(RegistrarActivity.this, "Repita a senha!", Toast.LENGTH_SHORT).show();
+                }
+                //Quando as senhas colocadas pelo usuário não são iguais
+                else if(!senha.equals(repitaSenha)){
+                    Toast.makeText(RegistrarActivity.this, "As duas senhas não correspondem, escreva novamente!", Toast.LENGTH_SHORT).show();
+                }
+                //Confirma que o registro foi criado
+                else{
+                    long registro = db.CriarUsuario(nome, senha);
+                    if(registro > 0){
+                        Toast.makeText(RegistrarActivity.this, "Registrado com sucesso!", Toast.LENGTH_SHORT).show();
+                    }
+                    //Quando o registro do usuário encontra - se inválido
+                    else {
+                        Toast.makeText(RegistrarActivity.this, "Registro inválido, tente novamente!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+
+    }
+}
+
+//Helper.java
+
+public class Helper extends SQLiteOpenHelper{
+
+    public Helper(Context context) {
+        super(context, "Login", null, 3);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        String sql = "CREATE TABLE Login(nome TEXT PRIMARY KEY, senha TEXT);";
+        db.execSQL(sql);
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        String sql = "DROP TABLE IF EXISTS Login";
+        db.execSQL(sql);
+        onCreate(db);
+    }
+
+    public long CriarUsuario(String nome, String senha){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("nome", nome);
+        cv.put("senha", senha);
+        long resultado =  db.insert("Login", null, cv);
+        return resultado;
+    }
+
+    public String ValidarLogin(String nome, String senha){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM Login WHERE nome=? AND senha=?", new String[]{nome, senha});
+
+        if(c.getCount() > 0){
+            return "OK";
+        } else {
+            return "ERRO";
+        }
+    }
+
+}
+
+

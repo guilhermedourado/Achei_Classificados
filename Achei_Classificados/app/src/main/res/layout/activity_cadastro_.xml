@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context="br.com.acheiclassificados.achei_classificados.Cadastro_Activity">
+
+    <!-- Feito - Cacau -->
+    <TextView
+        android:id="@+id/txt_cadastro"
+        android:text="@string/cadastre_se"
+        android:textSize="23dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:textStyle="bold"
+        android:textColor="#00C4FF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!-- Botão para cadastro do profissional -->
+    <Button
+        android:id="@+id/btn_login_profissional"
+        android:text="@string/sou_profissional"
+        android:layout_width="300dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        android:background="#00C4FF"
+        android:textColor="#ffffff"
+        android:elevation="6dp"
+        android:stateListAnimator="@null"/>
+    <!-- Botão para cadastro do cliente -->
+    <Button
+        android:id="@+id/btn_login_cliente"
+        android:text="@string/sou_cliente"
+        android:layout_width="300dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:background="#00C4FF"
+        android:textColor="#ffffff"
+        android:elevation="6dp"
+        android:stateListAnimator="@null"/>
+
+    <!--Texto link para login -->
+    <TextView
+        android:id="@+id/txt_ja_sou_cadastrado"
+        android:text="JA SOU CADASTRADO"
+        android:textSize="20dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="90dp"
+        android:textStyle="bold"
+        android:textColor="#00C4FF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

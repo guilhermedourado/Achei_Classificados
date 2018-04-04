@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Achei Classificados</string>
+    <string name="sou_profissional">SOU PROFISSIONAL</string>
+    <string name="sou_cliente">SOU CLIENTE</string>
+    <string name="cadastre_se">CADASTRE-SE</string>
+    <string name="email">Email</string>
+    <string name="senha">Senha</string>
+    <string name="entrar">ENTRAR</string>
+    <string name="nome_cadastro_cliente">Nome</string>
+    <string name="telefone_cadastro_cliente">Telefone</string>
+    <string name="email_cadastro_cliente">Email</string>
+    <string name="cadastrar_cliente">Cadastrar</string>
+    <string name="nome_cadastro_profissional">Nome</string>
+    <string name="telefone_cadastro_profissional">Telefone</string>
+    <string name="email_cadastro_profissional">Email</string>
+    <string name="endereco_profissional">Endereço</string>
+</resources>
